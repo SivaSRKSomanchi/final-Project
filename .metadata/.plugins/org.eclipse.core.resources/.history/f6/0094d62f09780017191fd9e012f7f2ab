@@ -1,0 +1,8 @@
+package com.bellinfo.onlinepersonalbanking.controller;
+
+import org.springframework.stereotype.Controller;
+
+//@Controller
+public class LandingPageController {
+
+}

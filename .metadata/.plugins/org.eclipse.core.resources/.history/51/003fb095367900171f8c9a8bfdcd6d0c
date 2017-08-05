@@ -1,0 +1,67 @@
+package com.bellinfo.onlinepersonalbanking.dao;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
+
+@Repository
+public class UserRepoImpl implements UserRepo {
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	public void saveUserDetails(UserRegistrationModelClass userReg) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		currentSession.persist(userReg);	
+	}
+
+	@Override
+	public boolean checkLogin(String username, String password) {
+		System.out.println("DAO class -- In Check login");
+		Session session = sessionFactory.getCurrentSession();
+		boolean userexists = false;
+		/*String SQL_QUERY =" from UserRegistrationModelClass as o where o.username=? and o.password=?";
+		Query query = session.createQuery(SQL_QUERY);
+		query.setParameter(0,username);
+		query.setParameter(1,password);*/
+		Criteria c = session.createCriteria(UserRegistrationModelClass.class);
+		Criterion cr  = Restrictions.eq("username", username);
+		Criterion cr1  = Restrictions.eq("password", password);
+		c.add(cr);
+		c.add(cr1);
+		UserRegistrationModelClass s =(UserRegistrationModelClass) c.uniqueResult();
+		System.out.println(s);
+		List list = c.list();
+		for(Object l:list) {
+			System.out.println("in check login"+l.toString());
+		}
+		
+		if ((list != null) && (list.size() > 0)) {
+			userexists= true;
+		}
+		return userexists;
+	}
+
+	@Override
+	public List<UserRegistrationModelClass> getUserDetails(String username, String password) {
+		System.out.println("DAO class -- In get user details method");
+		Session session = sessionFactory.getCurrentSession();
+		Criteria c = session.createCriteria(UserRegistrationModelClass.class);
+		Criterion cr  = Restrictions.eq("username", username);
+		Criterion cr1  = Restrictions.eq("password", password);
+		c.add(cr);
+		c.add(cr1);
+		UserRegistrationModelClass s =(UserRegistrationModelClass) c.uniqueResult();
+		return s;
+	}	
+	
+	
+}

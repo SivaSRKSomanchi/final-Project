@@ -1,0 +1,23 @@
+1501700321241	Rename type 'UserDetailsService'
+1501714610962	Delete elements
+1501726419922	Rename type 'User'
+1501730840133	Rename compilation unit 'UserRegistrationRepository.java'
+1501732834646	Delete element
+1501732840292	Delete element
+1501732845801	Delete element
+1501738017875	Delete element
+1501738053872	Delete element
+1501781761885	Rename resource 'pages'
+1501784637069	Delete element
+1501792094853	Delete element
+1501825349792	Rename resource 'home.jsp'
+1501825402249	Rename resource 'homelogin.jsp'
+1501825554813	Rename resource 'Payments-Transfers.jsp'
+1501827570038	Delete element
+1501878263423	Delete element
+1501904343364	Copy file
+1501904353841	Delete element
+1501950455038	Extract method 'currentUser'
+1501953814059	Copy file
+1501953959897	Rename resource 'transferFundaPage2.jsp'
+1501953980157	Rename resource 'transferFundaPage3.jsp'

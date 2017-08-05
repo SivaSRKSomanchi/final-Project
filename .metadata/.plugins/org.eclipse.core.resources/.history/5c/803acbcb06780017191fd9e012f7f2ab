@@ -1,0 +1,5 @@
+package com.bellinfo.onlinepersonalbanking.dao;
+
+public interface UserRepo {
+
+}

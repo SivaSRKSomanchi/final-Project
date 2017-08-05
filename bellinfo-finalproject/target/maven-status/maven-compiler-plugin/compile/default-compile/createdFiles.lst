@@ -1,0 +1,8 @@
+com\bellinfo\onlinepersonalbanking\serivce\UserService.class
+com\bellinfo\onlinepersonalbanking\serivce\UserServiceImpl.class
+com\bellinfo\onlinepersonalbanking\dao\UserRepo.class
+com\bellinfo\onlinepersonalbanking\validator\UserValidator.class
+com\bellinfo\onlinepersonalbanking\controller\UserController.class
+com\bellinfo\onlinepersonalbanking\dao\UserRepoImpl.class
+com\bellinfo\onlinepersonalbanking\controller\LandingPageController.class
+com\bellinfo\onlinepersonalbanking\model\UserRegistrationModelClass.class

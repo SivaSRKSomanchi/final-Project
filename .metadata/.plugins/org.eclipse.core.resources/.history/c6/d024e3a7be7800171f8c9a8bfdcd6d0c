@@ -1,0 +1,19 @@
+package com.bellinfo.onlinepersonalbanking.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
+@Repository
+public class UserRepoImpl implements UserRepo {
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	public void saveUserDetails(UserRegistrationModelClass userReg) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		currentSession.persist(userReg);	
+	}	
+}

@@ -1,0 +1,145 @@
+package com.bellinfo.onlinepersonalbanking.model;
+
+import java.util.Arrays;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+//@Table(name = "registerdetails")
+public class UserRegistrationModelClass {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "accountNumber", nullable = false)
+	private int accountNumber;
+	
+	@Column(name = "cifNumber", nullable = false)
+	private int cifNumber;
+	
+	@Column(name = "branchCode", nullable = false)@NotNull
+	private int branchCode;
+	
+	@Column(name = "country", nullable = false)
+	private String country;
+	
+	@Column(name = "phoneNumber", nullable = false)
+	private int phoneNumber;
+	
+	/*@NotNull
+	@NotEmpty
+	private String[] facilityRequired;*/
+	
+	@Column(name = "username", nullable = false)
+	private String username;
+	
+	@Column(name = "password", nullable = false)
+	private String password;
+	
+	public UserRegistrationModelClass() {
+		
+	}
+
+	public UserRegistrationModelClass(int accountNumber, int cifNumber, int branchCode, String country,
+			int phoneNumber, String username, String password) {
+		this.accountNumber = accountNumber;
+		this.cifNumber = cifNumber;
+		this.branchCode = branchCode;
+		this.country = country;
+		this.phoneNumber = phoneNumber;
+		this.username = username;
+		this.password = password;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public int getCifNumber() {
+		return cifNumber;
+	}
+
+	public void setCifNumber(int cifNumber) {
+		this.cifNumber = cifNumber;
+	}
+
+	public int getBranchCode() {
+		return branchCode;
+	}
+
+	public void setBranchCode(int branchCode) {
+		this.branchCode = branchCode;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	/*public String[] getFacilityRequired() {
+		return facilityRequired;
+	}
+
+	public void setFacilityRequired(String[] facilityRequired) {
+		this.facilityRequired = facilityRequired;
+	}*/
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRegistrationModelClass [id=" + id + ", accountNumber=" + accountNumber + ", cifNumber=" + cifNumber
+				+ ", branchCode=" + branchCode + ", country=" + country + ", phoneNumber=" + phoneNumber + ", username="
+				+ username + "]";
+	}
+	
+	
+	
+
+}

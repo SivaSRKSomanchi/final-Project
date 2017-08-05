@@ -1,0 +1,9 @@
+package com.bellinfo.onlinepersonalbanking.dao;
+
+import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
+
+public interface UserRepo {
+
+	public void saveUserDetails(UserRegistrationModelClass userReg);
+	 
+}

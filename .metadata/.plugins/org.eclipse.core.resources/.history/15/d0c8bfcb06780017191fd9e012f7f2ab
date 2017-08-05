@@ -1,0 +1,118 @@
+package com.bellinfo.onlinepersonalbanking.model;
+
+import java.util.Arrays;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+public class UserRegistrationModelClass {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@NotNull
+	@NotEmpty
+	@Size(min=11,max=11)
+	private long accountNumber;
+	
+	@NotNull
+	@NotEmpty
+	@Size(min=11,max=11)
+	private long cifNumber;
+	
+	@NotNull
+	@NotEmpty
+	@Size(min=5,max=5)
+	private int branchCode;
+	
+	@NotNull
+	@NotEmpty
+	private String country;
+	
+	@NotNull
+	@NotEmpty
+	@Size(min=10,max=10)
+	private long phoneNumber;
+	
+	@NotNull
+	@NotEmpty
+	private String[] facilityRequired;
+	
+	public UserRegistrationModelClass() {
+		
+	}
+
+	public UserRegistrationModelClass(long accountNumber, long cifNumber, int branchCode, String country,
+			long phoneNumber, String[] facilityRequired) {
+		this.accountNumber = accountNumber;
+		this.cifNumber = cifNumber;
+		this.branchCode = branchCode;
+		this.country = country;
+		this.phoneNumber = phoneNumber;
+		this.facilityRequired = facilityRequired;
+	}
+
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public long getCifNumber() {
+		return cifNumber;
+	}
+
+	public void setCifNumber(long cifNumber) {
+		this.cifNumber = cifNumber;
+	}
+
+	public int getBranchCode() {
+		return branchCode;
+	}
+
+	public void setBranchCode(int branchCode) {
+		this.branchCode = branchCode;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String[] getFacilityRequired() {
+		return facilityRequired;
+	}
+
+	public void setFacilityRequired(String[] facilityRequired) {
+		this.facilityRequired = facilityRequired;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRegistrationModelClass [accountNumber=" + accountNumber + ", cifNumber=" + cifNumber
+				+ ", branchCode=" + branchCode + ", country=" + country + ", phoneNumber=" + phoneNumber
+				+ ", facilityRequired=" + Arrays.toString(facilityRequired) + "]";
+	}
+	
+	
+	
+	
+}

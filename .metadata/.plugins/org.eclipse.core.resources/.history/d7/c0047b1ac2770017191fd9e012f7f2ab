@@ -1,0 +1,5 @@
+package com.bellinfo.onlinepersonalbanking.init;
+
+public class AppConfig {
+
+}

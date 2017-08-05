@@ -1,0 +1,28 @@
+package com.bellinfo.onlinepersonalbanking.serivce;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bellinfo.onlinepersonalbanking.dao.UserRepo;
+import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
+
+@Service
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	private UserRepo userRepoDAO;
+	
+	@Transactional
+	public void saveUserDetails(UserRegistrationModelClass userReg) {
+		userRepoDAO.saveUserDetails(userReg);
+	}
+
+	
+	@Transactional
+	public boolean checkLogin(String username, String password) {
+		System.out.println("In Service class...Check Login");
+		return userRepoDAO.checkLogin(username,password);
+	}
+
+}

@@ -1,0 +1,11 @@
+package com.bellinfo.onlinepersonalbanking.serivce;
+
+import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
+
+public interface UserService {
+
+	public void saveUserDetails(UserRegistrationModelClass userReg);
+
+	public boolean checkLogin(String username, String password);
+	
+}

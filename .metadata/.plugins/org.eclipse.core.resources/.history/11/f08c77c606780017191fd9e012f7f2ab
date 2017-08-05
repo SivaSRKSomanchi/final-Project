@@ -1,0 +1,5 @@
+package com.bellinfo.onlinepersonalbanking.controller;
+
+public class LandingPageController {
+
+}
