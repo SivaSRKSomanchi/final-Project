@@ -22,7 +22,6 @@
 		<h4>We appreciate you, Thanks for using our service.</h4>
 		<table border=1px>
 			<tr>
-				<td>Select Recipient</td>
 				<td>Account Number</td>
 				<td>CIF Number</td>
 				<td>Branch Code</td>
@@ -43,7 +42,6 @@
 					<td>${tempList.username}</td>
 					<td>${tempList.firstName}</td>
 					<td>${tempList.lastName}</td>
-					<em><td>${tempList.salary}</td></em>
 				</tr>
 			</c:forEach>
 		</table>

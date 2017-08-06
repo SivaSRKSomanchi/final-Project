@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bellinfo.onlinepersonalbanking.model.TransactionsModelClass;
 import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
 import com.bellinfo.onlinepersonalbanking.serivce.UserService;
 
@@ -106,6 +107,14 @@ public class UserController {
 			return "transferFundsPage2";
 		}
 	}
+	
+	@RequestMapping("/transactions")
+	public String transactionsPage(HttpServletRequest req,Model model) {
+		user = (String) req.getSession().getAttribute("username");
+		List<TransactionsModelClass> transUserList = userService.getUsersInvolved(user);
+		model.addAttribute("transUserList",transUserList);
+		return "transactions";
+	}
 
 	@RequestMapping("/accountSummary")
 	public String accountSummaryPage(HttpServletRequest req, Model model) {
@@ -131,7 +140,9 @@ public class UserController {
 	}
 
 	@RequestMapping("/thanksForVisit")
-	public String thanksForVisit() {
+	public String thanksForVisit(HttpServletRequest request) {
+		request.getSession().setAttribute("null", user);
+		request.getSession().setAttribute("null", pass);
 		return "thanksForVisit";
 	}
 
@@ -140,13 +151,11 @@ public class UserController {
 		return "about";
 	}
 
-	@RequestMapping("/transactions")
-	public String transactionsPage() {
-		return "transactions";
-	}
+	
 
 	@RequestMapping("/contact")
 	public String contactPage() {
 		return "contact";
 	}
+	
 }

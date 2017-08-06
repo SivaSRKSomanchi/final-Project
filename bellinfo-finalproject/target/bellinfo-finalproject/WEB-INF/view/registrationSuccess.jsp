@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>hi this registrationSuccess</h1>
+<h1>Success</h1>
+<!-- <input type="button" value = "Back TO HomePage" onclick="window.location.href='saveUser/loginsuccess';return false;"></input>
+ -->
 </body>
 </html>

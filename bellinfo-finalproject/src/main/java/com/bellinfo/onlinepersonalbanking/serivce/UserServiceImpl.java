@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bellinfo.onlinepersonalbanking.dao.UserRepo;
+import com.bellinfo.onlinepersonalbanking.model.TransactionsModelClass;
 import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
 
 @Service
@@ -58,6 +59,14 @@ public class UserServiceImpl implements UserService{
 		System.out.println("INSIDE SERVICE LAYER - GET RECIPIENT CUSTOMER DETAILS METHOD");
 		
 		return userRepoDAO.recipientCustomer(value,radioStatus,loggedUser);
+	}
+
+
+	@Override
+	@Transactional
+	public List<TransactionsModelClass> getUsersInvolved(String user) {
+		System.out.println("INSIDE SERVICE LAYER - GET USERS INVOLVED IN TRANSACTIOINS METHOD");
+		return userRepoDAO.getUsersInvolved(user);
 	}
 
 }

@@ -11,6 +11,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.bellinfo.onlinepersonalbanking.model.TransactionsModelClass;
 import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
 
 @Repository
@@ -128,6 +130,11 @@ public class UserRepoImpl implements UserRepo {
 			System.out.println("INSIDE DAO RECIPIENT CUSTOMER METHOD: Payer updateSal = " + updateSal);
 			user1.setSalary(updateSal1);
 			session.saveOrUpdate(user1);
+			//Entering Transferr Info into Transaction Table..
+			String recipientName = user.getUsername();
+			String payerName = user1.getUsername();
+			TransactionsModelClass trans = new TransactionsModelClass("Transferred", recipientName, payerName, value, user.getAccountNumber(), user1.getAccountNumber());
+			session.save(trans);	
 			//Adding user and user1 to transactionUserList
 			transactionUserList.add(user);
 			transactionUserList.add(user1);
@@ -138,4 +145,15 @@ public class UserRepoImpl implements UserRepo {
 		return transactionUserList;
 	}
 
+	@Override
+	public List<TransactionsModelClass> getUsersInvolved(String user) {
+		System.out.println(user + " Inside DAO LAYER-getUsersInvolved");
+		Session session = sessionFactory.getCurrentSession();
+		Criteria c = session.createCriteria(TransactionsModelClass.class);
+		Criterion cr = Restrictions.eq("payer", user);
+		c.add(cr);
+		List<TransactionsModelClass> s = c.list();
+		System.out.println("\nDETAILS METOHD: " + s);
+		return s;
+	}
 }

@@ -2,6 +2,7 @@ package com.bellinfo.onlinepersonalbanking.dao;
 
 import java.util.List;
 
+import com.bellinfo.onlinepersonalbanking.model.TransactionsModelClass;
 import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
 
 public interface UserRepo {
@@ -17,5 +18,7 @@ public interface UserRepo {
 	public List<UserRegistrationModelClass> getAllCustomers();
 
 	public List<UserRegistrationModelClass> recipientCustomer(int value, int radioStatus,UserRegistrationModelClass loggedUser);
+
+	public List<TransactionsModelClass> getUsersInvolved(String user);
 	 
 }

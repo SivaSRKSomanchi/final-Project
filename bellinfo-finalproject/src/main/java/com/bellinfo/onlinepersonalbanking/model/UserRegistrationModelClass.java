@@ -1,12 +1,16 @@
 package com.bellinfo.onlinepersonalbanking.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -50,6 +54,11 @@ public class UserRegistrationModelClass {
 	@Column(name = "salary", nullable = false)
 	private int salary;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<TransactionsModelClass> transactions = new ArrayList<TransactionsModelClass>();
+	
+	
+	
 	public UserRegistrationModelClass() {
 		
 	}
@@ -73,6 +82,14 @@ public class UserRegistrationModelClass {
 
 
 
+
+	public List<TransactionsModelClass> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<TransactionsModelClass> transactions) {
+		this.transactions = transactions;
+	}
 
 	public int getId() {
 		return id;

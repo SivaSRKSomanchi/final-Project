@@ -6,20 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<!-- <style type="text/css">
-/* Tell body leave a 40px gap at the top for the navigation when the page is scrolled to the top */
-body { position: relative; padding-top: 40px; }
-/* Tell the nav to stick to the top left */
-nav { position: fixed; top: 0; left: 0; }
-</style> -->
-<!-- Latest compiled and minified CSS -->
+<title>App Home Page</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
 <style type="text/css">
-body {
+
+/* body {
 	background:
 		url(https://s-media-cache-ak0.pinimg.com/originals/ba/a3/aa/baa3aa1cca168dac8ad8fe2c20bef1f5.jpg)
 		no-repeat center center fixed;
@@ -27,7 +21,8 @@ body {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
+} */
+
 h2{
 font-size: 2.0rem;
 	font-weight: bold;
