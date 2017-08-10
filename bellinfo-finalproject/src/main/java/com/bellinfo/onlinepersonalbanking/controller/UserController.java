@@ -26,7 +26,9 @@ import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
 import com.bellinfo.onlinepersonalbanking.serivce.UserService;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.CallFactory;
 import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Call;
 import com.twilio.sdk.resource.instance.Message;
 
 @Controller
@@ -60,6 +62,24 @@ public class UserController {
             System.out.println(e.getErrorMessage());
         }
     }
+    
+    public void makeCall(String phoneNumber) {
+        try {
+            TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("Url", "https://brodan.biz/call.xml"));
+            params.add(new BasicNameValuePair("To", phoneNumber)); //Add real number here
+            params.add(new BasicNameValuePair("From", TWILIO_NUMBER));
+                 
+            CallFactory callFactory = client.getAccount().getCallFactory();
+            Call call = callFactory.create(params);
+        } 
+        catch (TwilioRestException e) {
+            System.out.println(e.getErrorMessage());
+        }
+    }
+	
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -111,16 +131,35 @@ public class UserController {
 		// send over to our update form
 		return "saveUpdates";
 	}
-
 	@RequestMapping("/otp")
+	public String otpOrCall() {
+		return "otpOrCall";
+	}
+
+	@RequestMapping("/otp1")
 	public String otp(Model model, HttpServletRequest req) {
+		String thru = req.getParameter("mode");
+		if(thru.equalsIgnoreCase("text")) 
+		{
 	    String otpNumHaveToSend = userService.otp(4);
 		String message = "Your OTP number is: "+otpNumHaveToSend+" - Please Enter this number in your window.";
 		req.getSession().setAttribute("OTPNum", otpNumHaveToSend);
 		UserRegistrationModelClass loggedUser = currentUser(req);
 		String phoneN = loggedUser.getPhoneNumber();
 		sendSMS(phoneN, message);
+		System.out.println("inside controller ssivaram = "+thru);
+		model.addAttribute("loggedUserPhoneNumber",phoneN);
+		model.addAttribute("thru",thru);
 		return "otp";
+		} else 
+		{
+			UserRegistrationModelClass loggedUser = currentUser(req);
+			String phoneN = loggedUser.getPhoneNumber();
+			makeCall(phoneN);
+			model.addAttribute("loggedUserPhoneNumber",phoneN);
+			model.addAttribute("thru",thru);
+			return "call";
+		}
 	}
 
 	@RequestMapping("/otp2")
@@ -138,6 +177,10 @@ public class UserController {
 		} else {
 			return "otp2";
 		}
+	}
+	@RequestMapping("/otp3")
+	public String fromCallJspPageToTransfers() {
+		return "transferFundsPage";
 	}
 
 	@RequestMapping("/paymentForm")
