@@ -20,5 +20,6 @@ public interface UserRepo {
 	public List<UserRegistrationModelClass> recipientCustomer(int value, int radioStatus,UserRegistrationModelClass loggedUser);
 
 	public List<TransactionsModelClass> getUsersInvolved(String user);
+
 	 
 }

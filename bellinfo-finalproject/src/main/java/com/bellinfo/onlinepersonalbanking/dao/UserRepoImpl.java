@@ -2,6 +2,7 @@ package com.bellinfo.onlinepersonalbanking.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -114,6 +115,7 @@ public class UserRepoImpl implements UserRepo {
 		List<UserRegistrationModelClass> transactionUserList = new ArrayList<UserRegistrationModelClass>();
 		// retrieve from db
 		try {
+			
 			// Recipient Update
 			UserRegistrationModelClass user = session.get(UserRegistrationModelClass.class, radioStatus);
 			int currentSal = user.getSalary();
@@ -122,19 +124,23 @@ public class UserRepoImpl implements UserRepo {
 			System.out.println("INSIDE DAO RECIPIENT CUSTOMER METHOD: Recipient updateSal = " + updateSal);
 			user.setSalary(updateSal);
 			session.saveOrUpdate(user);
+			
 			// Payer Update
 			UserRegistrationModelClass user1 = session.get(UserRegistrationModelClass.class, loggedUser.getId());
 			int currentSal1 = user1.getSalary();
 			System.out.println("INSIDE DAO RECIPIENT CUSTOMER METHOD: Payer currentSal = " + currentSal);
 			int updateSal1 = currentSal1 - value;
-			System.out.println("INSIDE DAO RECIPIENT CUSTOMER METHOD: Payer updateSal = " + updateSal);
+			System.out.println("INSIDE DAO RECIPIENT CUSTOMER METHOD: Payer updateSal = " + updateSal1);
 			user1.setSalary(updateSal1);
 			session.saveOrUpdate(user1);
+			
 			//Entering Transferr Info into Transaction Table..
 			String recipientName = user.getUsername();
 			String payerName = user1.getUsername();
 			TransactionsModelClass trans = new TransactionsModelClass("Transferred", recipientName, payerName, value, user.getAccountNumber(), user1.getAccountNumber());
-			session.save(trans);	
+			session.save(trans);
+			user1.getTransactions().add(trans);
+			
 			//Adding user and user1 to transactionUserList
 			transactionUserList.add(user);
 			transactionUserList.add(user1);
@@ -156,4 +162,9 @@ public class UserRepoImpl implements UserRepo {
 		System.out.println("\nDETAILS METOHD: " + s);
 		return s;
 	}
+	
+	
+	
+
+	
 }

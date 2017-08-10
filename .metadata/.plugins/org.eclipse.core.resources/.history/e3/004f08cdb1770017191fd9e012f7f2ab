@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="bellinfo-finalproject">
-        <property name="context-root" value="bellinfo-finalproject"/>
-        <property name="java-output-path" value="/bellinfo-finalproject/target/classes"/>
-    </wb-module>
-</project-modules>

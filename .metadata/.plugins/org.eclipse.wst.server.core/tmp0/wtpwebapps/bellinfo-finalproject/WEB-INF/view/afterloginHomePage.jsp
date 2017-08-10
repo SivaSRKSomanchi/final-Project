@@ -62,7 +62,7 @@ font-size: 2.0rem;
 				<li class="list"><a href="${pageContext.request.contextPath}/saveUser/contact">Contact</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="list"><a href="${pageContext.request.contextPath}/saveUser/paymentsTransfersPage">Transfer Funds</a></li>
+				<li class="list"><a href="${pageContext.request.contextPath}/saveUser/otp">Transfer Funds</a></li>
 				<li class="list"><a href="${pageContext.request.contextPath}/saveUser/accountSummary">Account Summary</a></li>
 				<li class="list"><a href="${pageContext.request.contextPath}/saveUser/transactions">Transactions</a></li>
 				<li class="list"><a href="${pageContext.request.contextPath}/saveUser/update">Change Credentials</a></li>

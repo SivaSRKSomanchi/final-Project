@@ -37,6 +37,22 @@
 		<item value="0" key="y"/>
 		<item value="838" key="height"/>
 	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\Sivaram Somanchi\Downloads\gs-serving-web-content-master"/>
+			<item value="C:\Users\Sivaram Somanchi\Downloads\nixmash-spring-master"/>
+			<item value="C:\Users\Sivaram Somanchi\Downloads\springboot-example-master"/>
+			<item value="C:\Users\Sivaram Somanchi\Downloads\cricket-team-master"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
 	<section name="MavenProjectWizardArchetypePage">
 		<item value="All Catalogs" key="catalog"/>
 		<list key="projectNameTemplate">

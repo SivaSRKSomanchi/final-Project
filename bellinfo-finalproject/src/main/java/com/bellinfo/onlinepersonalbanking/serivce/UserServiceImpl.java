@@ -1,6 +1,7 @@
 package com.bellinfo.onlinepersonalbanking.serivce;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,32 @@ public class UserServiceImpl implements UserService{
 	public List<TransactionsModelClass> getUsersInvolved(String user) {
 		System.out.println("INSIDE SERVICE LAYER - GET USERS INVOLVED IN TRANSACTIOINS METHOD");
 		return userRepoDAO.getUsersInvolved(user);
+	}
+
+
+	@Override
+	public boolean verify(String otp,String num) {
+		System.out.println("INSIDE SERVICE LAYER - Verify OTP METHOD");// TODO Auto-generated method stub
+		String generatedOTP = otp(4);
+		System.out.println("Generated = "+num+" "+"Entered OTP = "+otp);
+		if(otp.equals(num)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	@Override
+	public String otp(int len) {
+		System.out.println("Inside Generating otp");
+		String numbers = "0123456789";
+		Random r = new Random();
+		String o = "";
+		char[] otp = new char[len];
+		for(int i=0;i<len;i++) {
+			otp[i] = numbers.charAt(r.nextInt(numbers.length()));
+			o += otp[i];
+		}
+		return o;
 	}
 
 }

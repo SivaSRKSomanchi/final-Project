@@ -37,6 +37,8 @@ public class TransactionsModelClass {
 	@NotEmpty
 	private String payerAccountNumber;
 	
+	
+	
 	public TransactionsModelClass() {
 		
 	}
@@ -49,6 +51,7 @@ public class TransactionsModelClass {
 		this.amount = amount;
 		this.recipientAccountNumber = recipientAccountNumber;
 		this.payerAccountNumber = payerAccountNumber;
+		
 	}
 	
 

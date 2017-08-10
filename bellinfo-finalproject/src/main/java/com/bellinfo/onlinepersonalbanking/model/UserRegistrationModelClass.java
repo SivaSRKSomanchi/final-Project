@@ -24,7 +24,7 @@ public class UserRegistrationModelClass {
 	private int id;
 	
 	@NotEmpty
-	@Column(name = "accountNumber", nullable = false)
+	@Column(name = "accountNumber", nullable = false, length = 11)
 	private String accountNumber;
 	
 	@Column(name = "cifNumber", nullable = false)
@@ -79,10 +79,7 @@ public class UserRegistrationModelClass {
 		this.lastName = lastName;
 		this.salary = salary*12;
 	}
-
-
-
-
+	
 	public List<TransactionsModelClass> getTransactions() {
 		return transactions;
 	}

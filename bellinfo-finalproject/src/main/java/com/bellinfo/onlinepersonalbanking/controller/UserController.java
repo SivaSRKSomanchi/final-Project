@@ -1,11 +1,14 @@
 package com.bellinfo.onlinepersonalbanking.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.validation.Valid;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bellinfo.onlinepersonalbanking.model.TransactionsModelClass;
 import com.bellinfo.onlinepersonalbanking.model.UserRegistrationModelClass;
 import com.bellinfo.onlinepersonalbanking.serivce.UserService;
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Message;
 
 @Controller
 @RequestMapping("/saveUser")
@@ -29,6 +36,31 @@ public class UserController {
 	private UserService userService;
 	private String user;
 	private String pass;
+	
+	 // Find your Account Sid and Token at twilio.com/user/account
+    public static final String ACCOUNT_SID = "AC73a23433564946d8215f8bd7d44d234a";
+    public static final String AUTH_TOKEN = "e3b176a6c89a38fce153c2d7abab4187";
+    public static final String TWILIO_NUMBER = "+16179256126";
+    
+    public void sendSMS(String phoneNumber, String messag) {
+        try {
+            TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+     System.out.println("sivaram inside sendSMS");
+            // Build a filter for the MessageList
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("Body", messag));
+            params.add(new BasicNameValuePair("To", phoneNumber)); //Add real number here
+            params.add(new BasicNameValuePair("From", TWILIO_NUMBER));
+     
+            MessageFactory messageFactory = client.getAccount().getMessageFactory();
+            Message message = messageFactory.create(params);
+            System.out.println(message.getSid());
+        } 
+        catch (TwilioRestException e) {
+            System.out.println(e.getErrorMessage());
+        }
+    }
+
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String userRegistration(Model model) {
@@ -80,14 +112,32 @@ public class UserController {
 		return "saveUpdates";
 	}
 
-	@RequestMapping("/paymentsTransfersPage")
-	public String paymentsTransfersPage(Model model) {
-		// retrieve list of customers from db
-		List<UserRegistrationModelClass> userList = userService.getAllCustomers();
-		// set the userList as a model attribute to populate the list in our jsp page
-		model.addAttribute("userList", userList);
-		// send over to display the list
-		return "transferFundsPage";
+	@RequestMapping("/otp")
+	public String otp(Model model, HttpServletRequest req) {
+	    String otpNumHaveToSend = userService.otp(4);
+		String message = "Your OTP number is: "+otpNumHaveToSend+" - Please Enter this number in your window.";
+		req.getSession().setAttribute("OTPNum", otpNumHaveToSend);
+		UserRegistrationModelClass loggedUser = currentUser(req);
+		String phoneN = loggedUser.getPhoneNumber();
+		sendSMS(phoneN, message);
+		return "otp";
+	}
+
+	@RequestMapping("/otp2")
+	public String otp2(HttpServletRequest req, Model model) {
+		String otp = req.getParameter("otp");
+		String num = (String)req.getSession().getAttribute("OTPNum");
+		boolean result = userService.verify(otp,num);
+		if (result == true) {
+			// retrieve list of customers from db
+			List<UserRegistrationModelClass> userList = userService.getAllCustomers();
+			// set the userList as a model attribute to populate the list in our jsp page
+			model.addAttribute("userList", userList);
+			// send over to display the list
+			return "transferFundsPage";
+		} else {
+			return "otp2";
+		}
 	}
 
 	@RequestMapping("/paymentForm")
@@ -98,7 +148,8 @@ public class UserController {
 		int radioStatus = Integer.parseInt(req.getParameter("radioButton"));
 		System.out.println("Insise PAYMENT FORM METHOD: " + "AMOUNT=" + value + " RADIO STATUS=" + radioStatus);
 		if (loggedUser.getSalary() > value) {
-			List<UserRegistrationModelClass> userUpdatedList = userService.recipientCustomer(value, radioStatus, loggedUser);
+			List<UserRegistrationModelClass> userUpdatedList = userService.recipientCustomer(value, radioStatus,
+					loggedUser);
 			model.addAttribute("userUpdatedList", userUpdatedList);
 			return "transferFundsPage3";
 		} else {
@@ -107,12 +158,12 @@ public class UserController {
 			return "transferFundsPage2";
 		}
 	}
-	
+
 	@RequestMapping("/transactions")
-	public String transactionsPage(HttpServletRequest req,Model model) {
+	public String transactionsPage(HttpServletRequest req, Model model) {
 		user = (String) req.getSession().getAttribute("username");
 		List<TransactionsModelClass> transUserList = userService.getUsersInvolved(user);
-		model.addAttribute("transUserList",transUserList);
+		model.addAttribute("transUserList", transUserList);
 		return "transactions";
 	}
 
@@ -151,11 +202,9 @@ public class UserController {
 		return "about";
 	}
 
-	
-
 	@RequestMapping("/contact")
 	public String contactPage() {
 		return "contact";
 	}
-	
+
 }

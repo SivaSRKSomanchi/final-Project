@@ -20,5 +20,9 @@ public interface UserService {
 	public List<UserRegistrationModelClass> recipientCustomer(int value, int radioStatus, UserRegistrationModelClass loggedUser);
 
 	public List<TransactionsModelClass> getUsersInvolved(String user);
+
+	public boolean verify(String otp, String num);
+	
+	public String otp(int len);
 	
 }
